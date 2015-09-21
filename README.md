@@ -54,4 +54,14 @@ The first time you install the package, if you already have your extra defined, 
 before composer performs dependency solving. Any events after the package has been installed for the first time are too late. However, a message will be printed in this circumstance
 telling you to run `composer update` again.
 
-This problem is irrelevent if you first install the plugin then define your conenct packages. This issue does not occur when installing from the lock file.
+This problem is irrelevent if you first install the plugin then define your connect packages. This issue does not occur when installing from the lock file.
+
+###Corrupted tar file
+In some cases when you update composer will complain that the module tar file is corrupted.
+
+```
+PHP Fatal error:  Uncaught exception 'UnexpectedValueException' with message 'phar error: "/Magento_module-1.1.1.tgz" is a corrupted tar file (truncated)' in Command line code:1
+```
+This is because to install packages with compose the package must be readable with Phar. Extensions built with the Magento 1.6 packager are flawed and Phar isn't lenient enough to work with them.
+
+If this occurs please as the module vendor to update their packaging process.
